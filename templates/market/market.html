@@ -1,10 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base_main.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block extLink %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'app/market/market.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div id="market">
+        我是闪购 <br>
+        我是闪购 <br>
+        我是闪购 <br>
+        我是闪购 <br>
+        我是闪购 <br>
+        我是闪购 <br>
+        我是闪购 <br>
+        我是闪购 <br>
+        我是闪购 <br>
+        我是闪购 <br>
+    </div>
+{% endblock %}

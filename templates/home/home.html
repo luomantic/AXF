@@ -1,1 +1,24 @@
 {% extends 'base_main.html' %}
+{% load static %}
+
+{% block extLink %}
+
+    {{ block.super }} {# 先加载父类的css，否则会覆盖掉 #}
+
+    <link rel="stylesheet" href="{% static 'app/home/home.css' %}">
+
+{% endblock %}
+
+{% block content %}
+    <div id="home">
+        我是首页 <br>
+        我是首页 <br>
+        我是首页 <br>
+        我是首页 <br>
+        我是首页 <br>
+        我是首页 <br>
+        我是首页 <br>
+        我是首页 <br>
+        我是首页 <br>
+    </div>
+{% endblock %}
