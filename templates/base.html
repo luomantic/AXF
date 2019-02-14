@@ -1,0 +1,44 @@
+{# 1.加载静态文件 #}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    {# 2. 加载css #}
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/swiper.css' %}">
+
+    {# 3. css留空白 #}
+    {% block extLink %}
+    {% endblock %}
+
+    <title>{% block title %}luo{% endblock %}</title>
+</head>
+<body>
+    {% block header %}
+
+    {% endblock %}
+
+    {% block content %}
+
+    {% endblock %}
+
+    {% block footer %}
+
+    {% endblock %}
+
+    {# 4. 加载js #}
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/swiper.jquery.js' %}"></script>
+    <script src="{% static 'js/base.js' %}"></script>
+
+    {# 5. js留空白 #}
+    {% block extJS %}
+
+    {% endblock %}
+</body>
+</html>
