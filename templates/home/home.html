@@ -19,6 +19,8 @@
 
 {% block content %}
     <div id="home">
+
+        {# 轮播 #}
         <div class="swiper-container" id="topSwiper">
             <div class="swiper-wrapper">
                 {% for wheel in wheels %}
@@ -30,5 +32,65 @@
             {# 如果需要分页器 #}
             <div class="swiper-pagination"></div>
         </div>
+
+        {# 导航 #}
+        <div class="topMenu">
+            <nav>
+                <ul>
+                    {% for nav in navs %}
+                        <li>
+                            <img src="{{ nav.img }}" alt="{{ nav.name }}">
+                            <span>{{ nav.name }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+
+        {# 必购商品 #}
+        <div class="swiper-container" id="swiperMenu">
+            <ul class="swiper-wrapper">
+                {% for mustbuy in mustbuys %}
+                    <li class="swiper-slide">
+                        <img src="{{ mustbuy.img }}" alt="{{ mustbuy.name }}">
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {# 便利店 #}
+        <div class="CVS">
+            <h2>
+                <img src="{{ shop0.img }}" alt="{{ shop0.name }}">
+            </h2>
+
+            <fieldset>
+                {% for foo in shops_12 %}
+                    <a href="#">
+                        <img src="{{ foo.img }}" alt="{{ foo.name }}">
+                    </a>
+                {% endfor %}
+            </fieldset>
+
+            <ul>
+                {% for foo in shops_36 %}
+                    <li>
+                        <img src="{{ foo.img }}" alt="{{ foo.name }}">
+                        <span>{{ foo.name }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <ol>
+                {% for foo in shops_710 %}
+                    <li>
+                        <a href="#">
+                            <img src="{{ foo.img }}" alt="{{ foo.name }}">
+                        </a>
+                    </li>
+                {% endfor %}
+            </ol>
+        </div>
+
     </div>
 {% endblock %}

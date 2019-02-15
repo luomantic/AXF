@@ -35,3 +35,8 @@ class MainMustBuy(Main):
 class MainShop(Main):
     class Meta:
         db_table = 'axf_shop'
+
+# trackid,name,img,categoryid,brandname,
+# img1,childcid1,productid1,longname1,price1,marketprice1,
+# img2,childcid2,productid2,longname2,price2,marketprice2,
+# img3,childcid3,productid3,longname3,price3,marketprice3

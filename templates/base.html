@@ -6,6 +6,9 @@
 <head>
     <meta charset="UTF-8">
 
+    {# bootstrap在google浏览器下需要增加这行 #}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     {# 2. 加载css #}
     <link rel="stylesheet" href="{% static 'css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
@@ -18,27 +21,27 @@
     <title>{% block title %}luo{% endblock %}</title>
 </head>
 <body>
-    {% block header %}
+{% block header %}
 
-    {% endblock %}
+{% endblock %}
 
-    {% block content %}
+{% block content %}
 
-    {% endblock %}
+{% endblock %}
 
-    {% block footer %}
+{% block footer %}
 
-    {% endblock %}
+{% endblock %}
 
-    {# 4. 加载js #}
-    <script src="{% static 'js/jquery.js' %}"></script>
-    <script src="{% static 'js/bootstrap.js' %}"></script>
-    <script src="{% static 'js/swiper.jquery.js' %}"></script>
-    <script src="{% static 'js/base.js' %}"></script>
+{# 4. 加载js #}
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+<script src="{% static 'js/swiper.jquery.js' %}"></script>
+<script src="{% static 'js/base.js' %}"></script>
 
-    {# 5. js留空白 #}
-    {% block extJS %}
+{# 5. js留空白 #}
+{% block extJS %}
 
-    {% endblock %}
+{% endblock %}
 </body>
 </html>

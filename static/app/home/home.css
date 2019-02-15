@@ -7,7 +7,6 @@ footer .home span {
     color: orange;
 }
 
-
 #home {
     padding: 1.5rem 0;
     font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica, STHeiTi, Arial, sans-serif;
@@ -17,7 +16,6 @@ footer .home span {
     padding-bottom: 3rem;
     position: fixed;
 }
-
 
 /*顶部轮播*/
 #topSwiper {
@@ -36,7 +34,6 @@ footer .home span {
     width: 100%;
     height: 100%;
 }
-
 
 /* 顶部菜单导航 */
 .topMenu {
@@ -62,7 +59,6 @@ footer .home span {
     width: 2.5rem;
 }
 
-
 /* 菜单轮播 */
 #swiperMenu {
     width: 100%;
@@ -71,12 +67,12 @@ footer .home span {
 /*
 #swiperMenu li{
   width:3.333333rem
-}*/
+}
+*/
+
 #swiperMenu li img {
     width: 100%;
 }
-
-
 
 /* 便利店 */
 .CVS {
@@ -115,7 +111,6 @@ footer .home span {
     width: 2.5rem;
 }
 
-
 .CVS ol {
     display: flex;
     flex-wrap: wrap;
@@ -133,8 +128,6 @@ footer .home span {
 .CVS ol a img {
     width: 100%;
 }
-
-
 
 /* 主体数据 */
 .mainInfo {
@@ -171,11 +164,9 @@ footer .home span {
     left: 4.3rem;
 }
 
-
 .mainInfo > section > div > a > img {
     width: 100%;
 }
-
 
 .mainInfo > section > ul {
     display: flex;
