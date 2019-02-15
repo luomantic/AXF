@@ -9,16 +9,26 @@
 
 {% endblock %}
 
+
+{% block extJS %}
+
+    <script src="{% static 'app/home/home.js' %}"></script>
+
+{% endblock %}
+
+
 {% block content %}
     <div id="home">
-        我是首页 <br>
-        我是首页 <br>
-        我是首页 <br>
-        我是首页 <br>
-        我是首页 <br>
-        我是首页 <br>
-        我是首页 <br>
-        我是首页 <br>
-        我是首页 <br>
+        <div class="swiper-container" id="topSwiper">
+            <div class="swiper-wrapper">
+                {% for wheel in wheels %}
+                    <div class="swiper-slide">
+                        <img src="{{ wheel.img }}" alt="{{ wheel.name }}">
+                    </div>
+                {% endfor %}
+            </div>
+            {# 如果需要分页器 #}
+            <div class="swiper-pagination"></div>
+        </div>
     </div>
 {% endblock %}

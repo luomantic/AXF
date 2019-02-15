@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import *
 
 
 # Create your views here.
@@ -6,7 +7,12 @@ from django.shortcuts import render
 
 # 首页
 def home(request):
-    return render(request, 'home/home.html')
+    # 轮播数据
+    wheels = MainWheel.objects.all()
+    data = {
+        'wheels': wheels,
+    }
+    return render(request, 'home/home.html', data)
 
 
 # 闪购
