@@ -30,6 +30,12 @@ header {
     line-height: 1.5rem;
 }
 
+header div {
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+}
+
 footer {
     background: #fff;
     bottom: 0;

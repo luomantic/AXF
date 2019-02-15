@@ -156,7 +156,7 @@ footer .home span {
 }
 
 .mainInfo > section h3 > span {
-    background-color: yellow;
+    background-color: orange;
     width: 0.6rem;
     height: 0.1rem;
     position: absolute;
@@ -219,7 +219,7 @@ footer .home span {
     font-size: 0.5rem;
     position: absolute;
     right: -0.15rem;
-    top: 3.76rem;
+    top: 3.73rem;
     background: white;
 }
 

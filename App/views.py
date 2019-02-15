@@ -19,6 +19,8 @@ def home(request):
     shops_12 = shops[1:3]
     shops_36 = shops[3:7]
     shops_710 = shops[7:11]
+    # 主要商品数据
+    mainshows = MainShow.objects.all()
 
     data = {
         'wheels': wheels,
@@ -28,6 +30,7 @@ def home(request):
         'shops_12': shops_12,
         'shops_36': shops_36,
         'shops_710': shops_710,
+        'mainshows': mainshows,
     }
 
     return render(request, 'home/home.html', data)

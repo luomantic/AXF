@@ -1,12 +1,20 @@
 {% extends 'base_main.html' %}
 {% load static %}
 
+
 {% block extLink %}
 
     {{ block.super }} {# 先加载父类的css，否则会覆盖掉 #}
 
     <link rel="stylesheet" href="{% static 'app/home/home.css' %}">
 
+{% endblock %}
+
+
+{% block title %}
+    <header>
+        <div>首页</div>
+    </header>
 {% endblock %}
 
 
@@ -90,6 +98,59 @@
                     </li>
                 {% endfor %}
             </ol>
+        </div>
+
+        {# 主要商品 #}
+        <div class="mainInfo">
+            {% for mainshow in mainshows %}
+                <section>
+                    <h3>
+                        {{ mainshow.name }}
+                        <a href="#">更多&gt;</a>
+                        <span></span>
+                    </h3>
+                    <div>
+                        <a href="#">
+                            <img src="{{ mainshow.img }}" alt="">
+                        </a>
+                    </div>
+                    <ul>
+                        <li>
+                            <a href="">
+                                <img src="{{ mainshow.img1 }}" alt="">
+                                <p class="description">{{ mainshow.longname1 }}</p>
+                                <span>￥{{ mainshow.price1 }}</span>
+                                <s>{{ mainshow.marketprice1 }}</s>
+                            </a>
+                            <button>
+                                <span>+</span>
+                            </button>
+                        </li>
+                        <li>
+                            <a href="">
+                                <img src="{{ mainshow.img2 }}" alt="">
+                                <p class="description">{{ mainshow.longname2 }}</p>
+                                <span>￥{{ mainshow.price2 }}</span>
+                                <s>{{ mainshow.marketprice2 }}</s>
+                            </a>
+                            <button>
+                                <span>+</span>
+                            </button>
+                        </li>
+                        <li>
+                            <a href="">
+                                <img src="{{ mainshow.img3 }}" alt="">
+                                <p class="description">{{ mainshow.longname3 }}</p>
+                                <span>￥{{ mainshow.price3 }}</span>
+                                <s>{{ mainshow.marketprice3 }}</s>
+                            </a>
+                            <button>
+                                <span>+</span>
+                            </button>
+                        </li>
+                    </ul>
+                </section>
+            {% endfor %}
         </div>
 
     </div>
