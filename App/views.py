@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 from .models import *
 
 
@@ -38,7 +38,21 @@ def home(request):
 
 # 闪购
 def market(request):
-    return render(request, 'market/market.html')
+    return redirect(reverse('App:market_with_params', args=[104749]))
+
+
+def market_with_params(request, typeid):
+    # 左面的的导航
+    foodtypes = FoodType.objects.all()
+    # 商品数据, 根据主分类id进行筛选
+    goods_list = Goods.objects.filter(categoryid=typeid)
+
+    data = {
+        'foodtypes': foodtypes,
+        'goods_list': goods_list,
+        'typeid': typeid,
+    }
+    return render(request, 'market/market.html', data)
 
 
 # 购物车
