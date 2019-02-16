@@ -3,11 +3,9 @@ footer .market span {
     background-size: 0.513889rem;
 }
 
-
-footer .market dl dd{
+footer .market dl dd {
     color: orange;
 }
-
 
 #market {
     padding: 1.5rem 0;
@@ -59,8 +57,6 @@ aside ul li a {
     display: block;
 }
 
-
-
 div > section {
     background-color: #fafafa;
     width: 7.5rem;
@@ -108,9 +104,6 @@ nav ul li > span {
     height: 1rem;
     display: block;
 }
-
-
-
 
 section menu {
     height: 100%;
@@ -258,7 +251,6 @@ section menu > div > div > a > span {
     display: inline-block;
     margin-top: 0.3rem;
 }
-
 
 /*
     add by NJF

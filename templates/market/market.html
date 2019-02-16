@@ -7,6 +7,11 @@
 {% endblock %}
 
 
+{% block extJS %}
+    <script src="{% static 'app/market/market.js' %}"></script>
+{% endblock %}
+
+
 {% block header %}
     <header>
         <div>闪购</div>
@@ -22,7 +27,7 @@
             <ul>
                 {% for foodtype in foodtypes %}
                     <li>
-                        <a href="{% url 'App:market_with_params' foodtype.typeid%}">{{ foodtype.typename }}</a>
+                        <a href="{% url 'App:market_with_params' foodtype.typeid %}">{{ foodtype.typename }}</a>
                         {% if typeid == foodtype.typeid %}
                             <div class="yellowSlide"></div>
                         {% endif %}
@@ -36,11 +41,15 @@
             {# 导航nav #}
             <nav>
                 <ul>
-                    <li>
-                        <span>全部分类<span class="glyphicon glyphicon-menu-down"></span></span>
+                    <li id="child_type">
+                        <span>
+                            全部分类<span id="child_type_icon" class="glyphicon glyphicon-menu-down"></span>
+                        </span>
                     </li>
-                    <li>
-                        <span>综合排序<span class="glyphicon glyphicon-menu-down"></span></span>
+                    <li id="sort_rule">
+                        <span>
+                            综合排序<span class="glyphicon glyphicon-menu-down"></span>
+                        </span>
                     </li>
                 </ul>
             </nav>
@@ -67,7 +76,19 @@
                         </li>
                     {% endfor %}
                 </ul>
+
+                {# 子分类数据 #}
+                <div id="child_type_container">
+                    <div>
+                        {% for child_type in child_type_list %}
+                            <a href="#">
+                                <span>{{ child_type.0 }}</span>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
             </menu>
         </section>
+
     </div>
 {% endblock %}

@@ -41,16 +41,29 @@ def market(request):
     return redirect(reverse('App:market_with_params', args=[104749]))
 
 
+# 闪购 - 带参数
 def market_with_params(request, typeid):
-    # 左面的的导航
+    # 左面的的导航///
     foodtypes = FoodType.objects.all()
     # 商品数据, 根据主分类id进行筛选
     goods_list = Goods.objects.filter(categoryid=typeid)
+    # 获取当前主分类下的所有子分类
+    foodset = FoodType.objects.filter(typeid=typeid)
+
+    child_type_list = []  # 存放子分类的数据
+    if foodset.exists():
+        childtypes = foodset.first().childtypenames.split('#')
+        # childtypes ['全部分类:0', '进口水果:103534', '国产水果:103533']
+        for childtype in childtypes:
+            type_list = childtype.split(':')
+            child_type_list.append(type_list)
+            # child_type_list [['全部分类', '0'], ['进口水果', '103534'], ['国产水果', '103533']]
 
     data = {
         'foodtypes': foodtypes,
         'goods_list': goods_list,
         'typeid': typeid,
+        'child_type_list': child_type_list,
     }
     return render(request, 'market/market.html', data)
 
