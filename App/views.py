@@ -84,11 +84,24 @@ def market_with_params(request, typeid, typechildid, sortid):
     return render(request, 'market/market.html', data)
 
 
+# 我的
+def mine(request):
+    return render(request, 'mine/mine.html')
+
+
+# 注册
+def register(request):
+    return render(request, 'user/register.html')
+
+
+# 注册操作
+def register_handle(request):
+    pass
+
+
 # 购物车
 def cart(request):
     return render(request, 'cart/cart.html')
 
 
-# 我的
-def mine(request):
-    return render(request, 'mine/mine.html')
+
