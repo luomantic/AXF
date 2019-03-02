@@ -38,15 +38,20 @@ def home(request):
 
 # 闪购
 def market(request):
-    return redirect(reverse('App:market_with_params', args=[104749]))
+    return redirect(reverse('App:market_with_params', args=[104749, '0', '0']))
 
 
 # 闪购 - 带参数
-def market_with_params(request, typeid):
+def market_with_params(request, typeid, typechildid, sortid):
     # 左面的的导航///
     foodtypes = FoodType.objects.all()
     # 商品数据, 根据主分类id进行筛选
     goods_list = Goods.objects.filter(categoryid=typeid)
+
+    # 再按照子分类进行筛选
+    if typechildid != '0':
+        goods_list = goods_list.filter(childcid=typechildid)
+
     # 获取当前主分类下的所有子分类
     foodset = FoodType.objects.filter(typeid=typeid)
 
@@ -59,11 +64,22 @@ def market_with_params(request, typeid):
             child_type_list.append(type_list)
             # child_type_list [['全部分类', '0'], ['进口水果', '103534'], ['国产水果', '103533']]
 
+    # 排序规则
+    if sortid == '0':  # 综合排序
+        pass
+    elif sortid == '1':  # 销量排序
+        goods_list = goods_list.order_by('-productnum')
+    elif sortid == '2':  # 价格升序
+        goods_list = goods_list.order_by('price')
+    elif sortid == '3':  # 价格降序
+        goods_list = goods_list.order_by('-price')
+
     data = {
         'foodtypes': foodtypes,
         'goods_list': goods_list,
         'typeid': typeid,
         'child_type_list': child_type_list,
+        'typechildid': typechildid,
     }
     return render(request, 'market/market.html', data)
 

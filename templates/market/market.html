@@ -27,7 +27,7 @@
             <ul>
                 {% for foodtype in foodtypes %}
                     <li>
-                        <a href="{% url 'App:market_with_params' foodtype.typeid %}">{{ foodtype.typename }}</a>
+                        <a href="{% url 'App:market_with_params' foodtype.typeid '0' '0' %}">{{ foodtype.typename }}</a>
                         {% if typeid == foodtype.typeid %}
                             <div class="yellowSlide"></div>
                         {% endif %}
@@ -48,7 +48,7 @@
                     </li>
                     <li id="sort_rule">
                         <span>
-                            综合排序<span class="glyphicon glyphicon-menu-down"></span>
+                            综合排序<span id="sort_rule_icon" class="glyphicon glyphicon-menu-down"></span>
                         </span>
                     </li>
                 </ul>
@@ -81,10 +81,28 @@
                 <div id="child_type_container">
                     <div>
                         {% for child_type in child_type_list %}
-                            <a href="#">
+                            <a href="{% url 'App:market_with_params' typeid child_type.1 '0' %}">
                                 <span>{{ child_type.0 }}</span>
                             </a>
                         {% endfor %}
+                    </div>
+                </div>
+
+                {# 排序规则 #}
+                <div id="sort_rule_container">
+                    <div>
+                        <a href="{% url 'App:market_with_params' typeid typechildid '0' %}">
+                            <span>综合排序</span>
+                        </a>
+                        <a href="{% url 'App:market_with_params' typeid typechildid '1' %}">
+                            <span>销量排序</span>
+                        </a>
+                        <a href="{% url 'App:market_with_params' typeid typechildid '2' %}">
+                            <span>价格升序</span>
+                        </a>
+                        <a href="{% url 'App:market_with_params' typeid typechildid '3' %}">
+                            <span>价格降序</span>
+                        </a>
                     </div>
                 </div>
             </menu>
