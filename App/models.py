@@ -66,6 +66,7 @@ class MainShow(Main):
     class Meta:
         db_table = 'axf_mainshow'
 
+
 # trackid,name,img,
 # categoryid,brandname,
 # img1,childcid1,productid1,longname1,price1,marketprice1,
@@ -82,6 +83,7 @@ class FoodType(models.Model):
 
     class Meta:
         db_table = 'axf_foodtypes'
+
 
 # insert into axf_foodtypes(
 # typeid,typename,childtypenames,typesort) values
@@ -120,9 +122,23 @@ class Goods(models.Model):
     class Meta:
         db_table = 'axf_goods'
 
+
 # insert into axf_goods(
 # productid,productimg,productname,productlongname,isxf,pmdesc,specifics,
 # price,marketprice,categoryid,childcid,childcidname,dealerid,storenums,productnum
 # ) values(
 # "11951","http://img01","","乐吧薯片鲜虾味50.0g",0,0,"50g",
 # 2.00,2.500000,103541,103543,"膨化食品","4858",200,4);
+
+
+# 用户
+class User(models.Model):
+    name = models.CharField(max_length=20)
+    password = models.CharField(max_length=50)
+    email = models.EmailField(null=True, blank=True)
+    icon = models.ImageField(null=True, blank=True)
+    sex = models.BooleanField(default=True)
+    is_delete = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'axf_user'

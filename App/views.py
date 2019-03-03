@@ -96,12 +96,37 @@ def register(request):
 
 # 注册操作
 def register_handle(request):
-    pass
+    data = {
+        'status': 1,
+        'msg': 'ok',
+    }
+
+    if request.method == 'POST':
+        # 获取post提交的数据
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        email = request.POST.get('email')
+        icon = request.FILES.get('icon')
+
+        # 对提交的数据，进行后台合法性校验
+        if len(username) < 6:
+            data['status'] = 0
+            data['msg'] = '用户名不合法'
+            return render(request, 'user/register.html', data)
+
+        # 创建用户并保存到数据库
+        user = User()
+        user.name = username
+        user.password = password
+        user.email = email
+        user.icon = icon
+        user.save()
+
+        return redirect(reverse('App:mine'))
+
+    return redirect(reverse('App:register'))
 
 
 # 购物车
 def cart(request):
     return render(request, 'cart/cart.html')
-
-
-

@@ -1,7 +1,7 @@
 {% extends 'base_main.html' %}
 {% load static %}
 
-{% block extLink %}
+{% block extCSS %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'app/mine/mine.css' %}">
 {% endblock %}
@@ -20,7 +20,7 @@
             </p>
 
             <div id="regis">
-                <a href="#">注册</a>
+                <a href="{% url 'App:register' %}">注册</a>
             </div>
 
             <p>
