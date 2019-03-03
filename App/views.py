@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from .models import *
-
-
-# Create your views here.
+import hashlib
 
 
 # 首页
@@ -94,6 +92,14 @@ def register(request):
     return render(request, 'user/register.html')
 
 
+# 密码加密
+def has_code(s, salt='axf_luomantic'):  # 加盐
+    h = hashlib.sha256()
+    s += salt
+    h.update(s.encode())
+    return h.hexdigest()
+
+
 # 注册操作
 def register_handle(request):
     data = {
@@ -114,10 +120,19 @@ def register_handle(request):
             data['msg'] = '用户名不合法'
             return render(request, 'user/register.html', data)
 
+        # 检测用户是否重复
+        is_username_exist = User.objects.filter(name=username)
+        if is_username_exist:
+            data['status'] = 0
+            data['msg'] = "用户名已存在"
+            return render(request, 'user/register.html')
+
+        # 判断两次密码是否一致, 等各种检测
+
         # 创建用户并保存到数据库
         user = User()
         user.name = username
-        user.password = password
+        user.password = has_code(password)  # 后台存储的时候使用密码加密
         user.email = email
         user.icon = icon
         user.save()
