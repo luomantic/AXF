@@ -142,6 +142,29 @@ def register_handle(request):
     return redirect(reverse('App:register'))
 
 
+# 登录
+def login(request):
+    return render(request, 'user/login.html')
+
+
+def login_handle(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        # 去数据库去用户名密码（忽略加密操作）
+        users = User.objects.filter(name=username, password=password)
+        if users.exists():
+            # 保存session,注意users是一个字典
+            request.session['user_id'] = users.first().id
+            # 登录成功，返回我的页面
+            return redirect(reverse('App:mine'))
+        else:
+            # 返回提示消息，用户名或密码错误
+            return render(request, 'user/login.html', {'msg': '用户名或密码错误'})
+    return render(request, 'user/login.html', {'msg': 'ok'})
+
+
 # 购物车
 def cart(request):
     return render(request, 'cart/cart.html')

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extCSS %}
+    <link rel="stylesheet" href="{% static 'app/user/login.css' %}">
+{% endblock %}
+
+{% block extJS %}
+    <script src="{% static 'app/user/login.js' %}"></script>
+{% endblock %}
+
+{% block header %}
+    <header>登陆</header>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <form method="post" action="{% url 'App:login_handle' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>用户名</label>
+                {# id属性是方便js取值， name属性是方便post提交到后台后取值 #}
+                <input id="username" name="username" type="text" class="form-control"
+                       placeholder="请输入用户名">
+            </div>
+            <p>{{ msg }}</p>
+            <div class="form-group">
+                <label>密码</label>
+                <input id="password" name="password" type="password" class="form-control" placeholder="请输入密码">
+            </div>
+
+            <button id="login" type="submit" class="btn btn-success">登录</button>
+        </form>
+    </div>
+{% endblock %}
