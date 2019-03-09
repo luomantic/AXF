@@ -92,12 +92,7 @@ def register(request):
     return render(request, 'user/register.html')
 
 
-# 密码加密
-def has_code(s, salt='axf_luomantic'):  # 加盐
-    h = hashlib.sha256()
-    s += salt
-    h.update(s.encode())
-    return h.hexdigest()
+# 密码加密 ———— 暂时不做加密存储，注意加密后密码的长度
 
 
 # 注册操作
@@ -125,19 +120,19 @@ def register_handle(request):
         if is_username_exist:
             data['status'] = 0
             data['msg'] = "用户名已存在"
-            return render(request, 'user/register.html')
+            return render(request, 'user/register.html', data)
 
         # 判断两次密码是否一致, 等各种检测
 
         # 创建用户并保存到数据库
         user = User()
         user.name = username
-        user.password = has_code(password)  # 后台存储的时候使用密码加密
+        user.password = password
         user.email = email
         user.icon = icon
         user.save()
 
-        return redirect(reverse('App:mine'))
+        return redirect(reverse('App:login'))
 
     return redirect(reverse('App:register'))
 
@@ -148,17 +143,24 @@ def login(request):
 
 
 def login_handle(request):
+    data = {
+        "icon": "x",
+        "name": "x",
+    }
+
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        # 去数据库去用户名密码（忽略加密操作）
+        # 去数据库取用户名密码（忽略解密操作）
         users = User.objects.filter(name=username, password=password)
         if users.exists():
             # 保存session,注意users是一个字典
             request.session['user_id'] = users.first().id
             # 登录成功，返回我的页面
-            return redirect(reverse('App:mine'))
+            data['icon'] = User.objects.get(name=username).icon
+            data['name'] = username
+            return redirect(reverse('App:mine'), {'name': 'aaa'})
         else:
             # 返回提示消息，用户名或密码错误
             return render(request, 'user/login.html', {'msg': '用户名或密码错误'})
