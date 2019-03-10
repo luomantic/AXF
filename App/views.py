@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse
+
 from .models import *
-import hashlib
 
 
 # 首页
@@ -84,7 +84,20 @@ def market_with_params(request, typeid, typechildid, sortid):
 
 # 我的
 def mine(request):
-    return render(request, 'mine/mine.html')
+    data = {
+        'name': "",
+        "icon": "",
+    }
+    user_id = request.session.get('user_id', '')
+
+    if user_id:
+        user = User.objects.get(id=user_id)
+        name = user.name
+        icon = user.icon
+        data['name'] = name
+        # data['icon'] = '/upload/icon' + icon
+        data['icon'] = '/upload/icon'
+    return render(request, 'mine/mine.html', data)
 
 
 # 注册
@@ -132,9 +145,17 @@ def register_handle(request):
         user.icon = icon
         user.save()
 
+        # 保存session
+        request.session['user_id'] = user.id
         return redirect(reverse('App:login'))
 
     return redirect(reverse('App:register'))
+
+
+# 退出登录
+def logout(request):
+    request.session.flush()
+    return redirect(reverse('App:mine'))
 
 
 # 登录
@@ -143,10 +164,6 @@ def login(request):
 
 
 def login_handle(request):
-    data = {
-        "icon": "x",
-        "name": "x",
-    }
 
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -158,9 +175,7 @@ def login_handle(request):
             # 保存session,注意users是一个字典
             request.session['user_id'] = users.first().id
             # 登录成功，返回我的页面
-            data['icon'] = User.objects.get(name=username).icon
-            data['name'] = username
-            return redirect(reverse('App:mine'), {'name': 'aaa'})
+            return redirect(reverse('App:mine'))
         else:
             # 返回提示消息，用户名或密码错误
             return render(request, 'user/login.html', {'msg': '用户名或密码错误'})

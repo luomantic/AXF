@@ -18,7 +18,7 @@
             {% endif %}
 
             {% if name %}
-                <a href="#">name</a>
+                <a href="#">{% static name %}</a>
             {% else %}
                 <a href="{% url 'App:login' %}">登录</a>
             {% endif %}
