@@ -95,8 +95,7 @@ def mine(request):
         name = user.name
         icon = user.icon
         data['name'] = name
-        # data['icon'] = '/upload/icon' + icon
-        data['icon'] = '/upload/icon'
+        data['icon'] = '/upload/icon/' + icon.name
     return render(request, 'mine/mine.html', data)
 
 
