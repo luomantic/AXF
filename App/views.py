@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, reverse
 
 from .models import *
@@ -175,7 +176,7 @@ def login_handle(request):
         if users.exists():
             # 保存session,注意users是一个字典
             request.session['user_id'] = users.first().id
-            # request.session.set_expiry(0)
+            request.session.set_expiry(0)  # 此处设置关闭浏览器清除session
             # 登录成功，返回我的页面
             return redirect(reverse('App:mine'))
         else:
@@ -187,3 +188,32 @@ def login_handle(request):
 # 购物车
 def cart(request):
     return render(request, 'cart/cart.html')
+
+
+# 加入购物车
+def add_to_cart(request):
+    data = {
+        'status': 1,
+        'msg': 'ok',
+    }
+    # 判断用户是否登录，如果没有登录，跳转到登录页面
+    userid = request.session.get('user_id')
+    if not userid:
+        data['status'] = 0
+        data['msg'] = '用户未登录'
+        # return redirect(reverse('App:login'))
+    else:
+        if request.method == "GET":
+            good_id = request.GET.get('goods_id')
+            goods_num = request.GET.get('goods_num')
+
+            # 添加到购物车
+            temp_cart = Cart()
+            temp_cart.user_id = userid
+            temp_cart.goods_id = good_id
+            temp_cart.num = goods_num
+            temp_cart.save()
+        else:
+            data['status'] = -1
+            data['msg'] = "请求方式不正确"
+    return JsonResponse(data)

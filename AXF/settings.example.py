@@ -53,8 +53,7 @@ ROOT_URLCONF = 'AXF.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -128,3 +127,23 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/upload/icon')
+
+# session 设置
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # 引擎（默认）
+
+SESSION_COOKIE_AGE = 60 * 30  # 30分钟
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # 关闭浏览器，则COOKIE失效
+
+# 查看 django 源代码 “django.contrib.sessions.middleware.SessionMiddleware” 得知
+# SESSION_COOKIE_AGE 和 SESSION_EXPIRE_AT_BROWSER_CLOSE 这两个参数
+# 只有在 SESSION_SAVE_EVERY_REQUEST 为 True 时才有效。
+
+# SESSION_COOKIE_NAME = "sessionid"  # Session的cookie保存在浏览器上时的key，即：sessionid＝随机字符串（默认）
+# SESSION_COOKIE_PATH = "/"  # Session的cookie保存的路径（默认）
+# SESSION_COOKIE_DOMAIN = None  # Session的cookie保存的域名（默认）
+# SESSION_COOKIE_SECURE = False  # 是否Https传输cookie（默认）
+# SESSION_COOKIE_HTTPONLY = True  # 是否Session的cookie只支持http传输（默认）
+# SESSION_COOKIE_AGE = 1209600  # Session的cookie失效日期（2周）（默认）
+# SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # 是否关闭浏览器使得Session过期（默认）
+# SESSION_SAVE_EVERY_REQUEST = False  # 是否每次请求都保存Session，默认修改之后才保存（默认）

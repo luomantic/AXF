@@ -74,11 +74,11 @@
                                 </div>
                             </a>
                             <section>
-                                <button>-</button>
-                                <span>1</span>
-                                <button>+</button>
+                                <button class="reduce">-</button>
+                                <span class="goods_num">1</span>
+                                <button class="plus">+</button>
                             </section>
-                            <button class="addtocart">加入购物车</button>
+                            <button goods_id="{{ goods.id }}" class="addtocart">加入购物车</button>
                         </li>
                     {% endfor %}
                 </ul>
