@@ -142,3 +142,14 @@ class User(models.Model):
 
     class Meta:
         db_table = 'axf_user'
+
+
+# 购物车
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    goods = models.ForeignKey(Goods, on_delete=models.CASCADE)
+    num = models.IntegerField(default=1)
+    is_select = models.BooleanField(default=True)
+
+    class Meta:
+        db_table = 'axf_cart'

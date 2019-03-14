@@ -88,7 +88,8 @@ def mine(request):
         'name': "",
         "icon": "",
     }
-    user_id = request.session.get('user_id', '')
+
+    user_id = request.session.get('user_id', None)
 
     if user_id:
         user = User.objects.get(id=user_id)
@@ -96,7 +97,8 @@ def mine(request):
         icon = user.icon
         data['name'] = name
         data['icon'] = '/upload/icon/' + icon.name
-    return render(request, 'mine/mine.html', data)
+        return render(request, 'mine/mine.html', data)
+    return render(request, 'mine/mine.html')
 
 
 # 注册
@@ -145,15 +147,16 @@ def register_handle(request):
         user.save()
 
         # 保存session
-        request.session['user_id'] = user.id
-        return redirect(reverse('App:login'))
+        # request.session['user_id'] = user.id
+        # return redirect(reverse('App:login'))
 
     return redirect(reverse('App:register'))
 
 
 # 退出登录
 def logout(request):
-    request.session.flush()
+    # request.session.flush()
+    del request.session['user_id']  # 删除user_id的session
     return redirect(reverse('App:mine'))
 
 
@@ -163,7 +166,6 @@ def login(request):
 
 
 def login_handle(request):
-
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -173,6 +175,7 @@ def login_handle(request):
         if users.exists():
             # 保存session,注意users是一个字典
             request.session['user_id'] = users.first().id
+            # request.session.set_expiry(0)
             # 登录成功，返回我的页面
             return redirect(reverse('App:mine'))
         else:
