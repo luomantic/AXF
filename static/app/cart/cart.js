@@ -11,7 +11,7 @@ $(function () {
                 console.log(data.msg)
             }
 
-            // calculate();
+            calculate();
         })
     });
 
@@ -28,7 +28,7 @@ $(function () {
                 console.log(data.msg)
             }
 
-            // calculate();
+            calculate();
         })
     });
 
@@ -102,7 +102,7 @@ $(function () {
                 }
 
                 // 重新判断是否全选
-                isAllSelected()
+                isAllSelected();
             });
         }
         // 如果当前未全部勾选，则执行全选
@@ -118,7 +118,7 @@ $(function () {
                 }
 
                 // 重新判断是否全选
-                isAllSelected()
+                isAllSelected();
             });
         }
     });
@@ -144,15 +144,25 @@ $(function () {
         }
 
         //重新计算总价
-        //calculate();
-
+        calculate();
     }
 
     // 计算总价
     function calculate() {
+        //总价
         total = 0;
 
+        //遍历所有的li
         $('.menuList').each(function () {
+            if ($(this).find('.select').find('span').html()) {
+                //如果是勾选的，则计算价格
+                price = parseFloat($(this).find('.price').html()); //单价
+                num = parseInt($(this).find('.num').html());  //数量
+                total += price * num;
+            }
         });
+
+        // 显示总价
+        $('#totalprice').html(total.toFixed(2));
     }
 });
