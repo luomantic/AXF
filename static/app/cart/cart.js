@@ -4,7 +4,7 @@ $(function () {
         let that = this;
         let cartid = $(this).parent().parent('.menuList').attr('cartid');
 
-        $.get('/app/addnum/', {cartid:cartid}, function (data) {
+        $.get('/app/addnum/', {cartid: cartid}, function (data) {
             if (data.status === 1) {
                 $(that).prev().html(data.num)
             } else {
@@ -37,14 +37,31 @@ $(function () {
         let that = this;
         let cartid = $(this).parent('.menuList').attr('cartid');
 
-        $.get('/app/delcart/', {cartid:cartid}, function (data) {
-            if (data.status === 1){
+        $.get('/app/delcart/', {cartid: cartid}, function (data) {
+            if (data.status === 1) {
                 // location.reload() // 刷新整个页面
                 $(that).parent().remove() // 删除节点
-            }else {
-                console.log(data)
+            } else {
+                console.log(data.msg)
             }
         })
+    });
+
+    $('.select').click(function () {
+        let that = this;
+        let cartid = $(this).parents('.menuList').attr('cartid');
+
+        $.get('/app/cartselect/', {cartid:cartid}, function (data) {
+            if (data.status === 1) {
+                if (data.is_select){
+                    $(that).find('span').html('√')
+                }else {
+                    $(that).find('span').html('')
+                }
+            } else {
+                console.log(data.msg)
+            }
+        });
     });
 
     // 计算总价

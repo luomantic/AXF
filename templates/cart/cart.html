@@ -50,8 +50,12 @@
                             {# 每个商品 #}
                             <li class="menuList" cartid={{ cart.id }}>
                                 <div class="confirm">
-                                    <span>
-                                        <span>√</span>
+                                    <span class="select">
+                                        {% if cart.is_select %}
+                                            <span>√</span>
+                                        {% else %}
+                                            <span></span>
+                                        {% endif %}
                                     </span>
                                 </div>
 

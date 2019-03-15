@@ -304,3 +304,28 @@ def del_cart(request):
             data['status'] = -1
             data['msg'] = '请求方式不正确'
     return JsonResponse(data)
+
+
+# 勾选/取消勾选
+def cart_select(request):
+    data = {
+        'status': 1,
+        'msg': 'ok',
+    }
+
+    userid = request.session.get('user_id')
+    if not userid:
+        data['status'] = 0
+        data['msg'] = '未登录'
+    else:
+        if request.method == 'GET':
+            cartid = request.GET.get('cartid')
+            temp_goods = Cart.objects.get(id=cartid)
+            temp_goods.is_select = not temp_goods.is_select
+            temp_goods.save()
+
+            data['is_select'] = temp_goods.is_select
+        else:
+            data['status'] = -1
+            data['msg'] = '请求方式不正确'
+    return JsonResponse(data)
