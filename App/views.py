@@ -187,7 +187,13 @@ def login_handle(request):
 
 # 购物车
 def cart(request):
-    return render(request, 'cart/cart.html')
+    # 检查是否已登录
+    userid = request.session.get('user_id')
+    if not userid:
+        return redirect(reverse('App:login'))
+    else:
+        carts = Cart.objects.filter(user_id=userid)
+        return render(request, 'cart/cart.html', {'carts': carts})
 
 
 # 加入购物车
@@ -207,12 +213,20 @@ def add_to_cart(request):
             good_id = request.GET.get('goods_id')
             goods_num = request.GET.get('goods_num')
 
-            # 添加到购物车
-            temp_cart = Cart()
-            temp_cart.user_id = userid
-            temp_cart.goods_id = good_id
-            temp_cart.num = goods_num
-            temp_cart.save()
+            # 判断该商品是否已经在该用户的购物车中
+            carts = Cart.objects.filter(user_id=userid, goods_id=good_id)
+
+            if carts.exists():
+                temp_cart = carts.first()
+                temp_cart.num += int(goods_num)
+                temp_cart.save()
+            else:
+                # 添加到购物车
+                temp_cart = Cart()
+                temp_cart.user_id = userid
+                temp_cart.goods_id = good_id
+                temp_cart.num = goods_num
+                temp_cart.save()
         else:
             data['status'] = -1
             data['msg'] = "请求方式不正确"

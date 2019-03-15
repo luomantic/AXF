@@ -33,8 +33,8 @@ h3 {
 }
 
 .full > section > ul {
-    border: 0.2rem dashed lightgreen;
-    border-width: 0.1rem 0;
+    border: 0.05rem dashed green;
+    /*border-width: 0.1rem 0;*/
     margin-bottom: 0.2rem;
 }
 
@@ -89,15 +89,15 @@ h3 {
 .bill > p {
     padding: 0 0.3rem;
     font-size: 0.3rem;
-    color: lightgrey;
+    color: green;
 }
 
 .bill > p:first-child:before {
     width: 0.2rem;
     height: 0.3rem;
-    background: yellow;
+    background: red;
     content: ".";
-    color: yellow;
+    color: red;
     margin-right: 0.2rem;
 }
 
