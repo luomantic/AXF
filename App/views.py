@@ -329,3 +329,30 @@ def cart_select(request):
             data['status'] = -1
             data['msg'] = '请求方式不正确'
     return JsonResponse(data)
+
+
+# 全选/取消全选
+def cart_selectall(request):
+    data = {
+        'status': 1,
+        'msg': 'ok',
+    }
+
+    userid = request.session.get('user_id')
+    if not userid:
+        data['status'] = 0
+        data['msg'] = '未登录'
+    else:
+        if request.method == 'GET':
+            action = request.GET.get('action')
+            selects = request.GET.get('selects')
+            select_list = selects.split('#')  # 会变成列表
+
+            if action == 'cancelselect':
+                Cart.objects.filter(id__in=select_list).update(is_select=False)
+            else:
+                Cart.objects.filter(id__in=select_list).update(is_select=True)
+        else:
+            data['status'] = -1
+            data['msg'] = '请求方式不正确'
+    return JsonResponse(data)

@@ -19,4 +19,5 @@ urlpatterns = [
     path('reducenum/', views.reduce_num, name='reduce_num'),
     path('delcart/', views.del_cart, name='del_cart'),
     path('cartselect/', views.cart_select, name='cart_select'),
+    path('cartselectall/', views.cart_selectall, name='cart_selectall'),
 ]
