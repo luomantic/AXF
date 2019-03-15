@@ -231,3 +231,76 @@ def add_to_cart(request):
             data['status'] = -1
             data['msg'] = "请求方式不正确"
     return JsonResponse(data)
+
+
+# 数量+
+def add_num(request):
+    data = {
+        'status': 1,
+        'msg': 'ok',
+    }
+
+    userid = request.session.get('user_id')
+    if not userid:
+        data['status'] = 0
+        data['msg'] = '未登录'
+    else:
+        if request.method == 'GET':
+            cartid = request.GET.get('cartid')
+
+            temp_goods = Cart.objects.get(id=cartid)
+            temp_goods.num += 1
+            temp_goods.save()
+            data['num'] = temp_goods.num
+        else:
+            data['status'] = -1
+            data['msg'] = '请求方式不正确'
+    return JsonResponse(data)
+
+
+# 数量-
+def reduce_num(request):
+    data = {
+        'status': 1,
+        'msg': 'ok'
+    }
+
+    userid = request.session.get('user_id')
+    if not userid:
+        data['status'] = 0
+        data['msg'] = "未登录"
+    else:
+        if request.method == 'GET':
+            cartid = request.GET.get('cartid')
+
+            temp_goods = Cart.objects.get(id=cartid)
+            temp_goods.num -= 1
+            if temp_goods.num < 1:
+                temp_goods.num = 1
+            temp_goods.save()
+            data['num'] = temp_goods.num
+        else:
+            data['status'] = -1
+            data['msg'] = '请求方式不正确'
+    return JsonResponse(data)
+
+
+# 删除
+def del_cart(request):
+    data = {
+        'status': 1,
+        'msg': 'ok',
+    }
+
+    userid = request.session.get('user_id')
+    if not userid:
+        data['status'] = 0
+        data['msg'] = '未登录'
+    else:
+        if request.method == 'GET':
+            cartid = request.GET.get('cartid')
+            Cart.objects.filter(id=cartid).delete()
+        else:
+            data['status'] = -1
+            data['msg'] = '请求方式不正确'
+    return JsonResponse(data)

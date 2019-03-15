@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="{% static 'app/cart/cart.css' %}">
 {% endblock %}
 
+{% block extJS %}
+    <script src="{% static 'app/cart/cart.js' %}"></script>
+{% endblock %}
+
 {% block title %}购物车{% endblock %}
 
 {% block top_content %} 购物车 {% endblock %}
@@ -43,8 +47,8 @@
                 <menu>
                     <ul>
                         {% for cart in carts %}
-                            {# 勾 #}
-                            <li class="menuList">
+                            {# 每个商品 #}
+                            <li class="menuList" cartid={{ cart.id }}>
                                 <div class="confirm">
                                     <span>
                                         <span>√</span>
