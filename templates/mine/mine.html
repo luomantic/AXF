@@ -50,28 +50,36 @@
             <div id="nav">
                 <ul>
                     <li>
-                        <dl>
-                            <dt class="glyphicon glyphicon-usd"></dt>
-                            <dd>待付款</dd>
-                        </dl>
+                        <a href="{% url 'App:order_wait_pay' %}">
+                            <dl>
+                                <dt class="glyphicon glyphicon-usd"></dt>
+                                <dd>待付款</dd>
+                            </dl>
+                        </a>
                     </li>
                     <li>
-                        <dl>
-                            <dt class="glyphicon glyphicon-envelope"></dt>
-                            <dd>待收货</dd>
-                        </dl>
+                        <a href="{% url 'App:order_paid' %}">
+                            <dl>
+                                <dt class="glyphicon glyphicon-envelope"></dt>
+                                <dd>待收货</dd>
+                            </dl>
+                        </a>
                     </li>
                     <li>
-                        <dl>
-                            <dt class="glyphicon glyphicon-pencil"></dt>
-                            <dd>待评价</dd>
-                        </dl>
+                        <a href="{% url 'App:order_wait_evaluate' %}">
+                            <dl>
+                                <dt class="glyphicon glyphicon-pencil"></dt>
+                                <dd>待评价</dd>
+                            </dl>
+                        </a>
                     </li>
                     <li>
-                        <dl>
-                            <dt class="glyphicon glyphicon-retweet"></dt>
-                            <dd>退款/售后</dd>
-                        </dl>
+                        <a href="#">
+                            <dl>
+                                <dt class="glyphicon glyphicon-retweet"></dt>
+                                <dd>退款/售后</dd>
+                            </dl>
+                        </a>
                     </li>
                 </ul>
             </div>

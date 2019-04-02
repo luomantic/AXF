@@ -24,4 +24,7 @@ urlpatterns = [
     path('ordercreate/', views.order_create, name='order_create'),
     re_path('order/(\d+)/$', views.order, name='order'),
     path('order_change_status/', views.order_change_status, name='order_change_status'),
+    path('order_wait_pay/', views.order_wait_pay, name='order_wait_pay'),
+    path('order_paid/', views.order_paid, name='order_paid'),
+    path('order_wait_evaluate/', views.order_wait_evaluate, name='order_wait_evaluate'),
 ]

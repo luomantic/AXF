@@ -430,3 +430,36 @@ def order_change_status(request):
             data['status'] = -1
             data['msg'] = '请求方式不正确'
     return JsonResponse(data)
+
+
+# 待付款订单页面
+def order_wait_pay(request):
+    userid = request.session.get('user_id', '')
+    if not userid:
+        return redirect(reverse('App:login'))
+    else:
+        # 如果登录了，则获取当前用户下的所有待付款订单
+        orders = Order.objects.filter(user_id=userid, order_status='0')
+        return render(request, 'order/order_wait_pay.html', {'orders': orders})
+
+
+# 已收货订单页面
+def order_paid(request):
+    userid = request.session.get('user_id', '')
+    if not userid:
+        return redirect(reverse('App:login'))
+    else:
+        # 如果登录了，则获取当前用户下的所有待付款订单
+        orders = Order.objects.filter(user_id=userid, order_status='1')
+    return render(request, 'order/order_paid.html', {'orders': orders})
+
+
+# 待评价订单页面
+def order_wait_evaluate(request):
+    userid = request.session.get('user_id', '')
+    if not userid:
+        return redirect(reverse('App:login'))
+    else:
+        # 如果登录了，则获取当前用户下的所有待付款订单
+        orders = Order.objects.filter(user_id=userid, order_status='2')
+    return render(request, 'order/order_wait_evaluate.html', {'orders': orders})
