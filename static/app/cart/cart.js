@@ -173,7 +173,7 @@ $(function () {
         $.get('/app/ordercreate/', function (data) {
             // console.log(data)
             if (data.status === 1) {
-
+                location.href = '/app/order/' + data.order_id + '/';
             }else {
                 console.log(data)
             }

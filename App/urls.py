@@ -1,4 +1,5 @@
-from django.urls import path, include, re_path
+from django.urls import path, re_path
+
 from . import views
 
 app_name = 'App'
@@ -21,4 +22,6 @@ urlpatterns = [
     path('cartselect/', views.cart_select, name='cart_select'),
     path('cartselectall/', views.cart_selectall, name='cart_selectall'),
     path('ordercreate/', views.order_create, name='order_create'),
+    re_path('order/(\d+)/$', views.order, name='order'),
+    path('order_change_status/', views.order_change_status, name='order_change_status'),
 ]

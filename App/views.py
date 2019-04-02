@@ -1,8 +1,9 @@
+import uuid
+
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, reverse
 
 from .models import *
-import uuid
 
 
 # 首页
@@ -394,6 +395,37 @@ def order_create(request):
             # 添加总价
             order.order_price = total
             order.save()
+            data['order_id'] = order.id
+        else:
+            data['status'] = -1
+            data['msg'] = '请求方式不正确'
+    return JsonResponse(data)
+
+
+# 订单页面
+def order(request, order_id):
+    order_data = Order.objects.get(id=order_id)
+    return render(request, 'order/order.html', {'order': order_data})
+
+
+# 支付 - 更改订单状态
+def order_change_status(request):
+    data = {
+        'status': 1,
+        'msg': 'ok',
+    }
+
+    userid = request.session.get('user_id', '')
+    if not userid:
+        data['status'] = 0
+        data['msg'] = '未登录'
+    else:
+        if request.method == 'GET':
+            orderid = request.GET.get('orderid')
+            status = request.GET.get('status')
+
+            # 修改订单的状态为status
+            Order.objects.filter(id=orderid).update(order_status=status)
         else:
             data['status'] = -1
             data['msg'] = '请求方式不正确'
