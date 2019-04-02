@@ -165,4 +165,19 @@ $(function () {
         // 显示总价
         $('#totalprice').html(total.toFixed(2));
     }
+
+    // 结算，下单
+    $('#calculate').click(function () {
+        // 先获取购物车中勾选的所有商品（也可以在后台获取）
+        // 让后台生成订单
+        $.get('/app/ordercreate/', function (data) {
+            // console.log(data)
+            if (data.status === 1) {
+
+            }else {
+                console.log(data)
+            }
+        });
+    });
+
 });

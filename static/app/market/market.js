@@ -59,7 +59,7 @@ $(function () {
         $.get('/app/addtocart/', {goods_id:goods_id, goods_num:goods_num}, function (data) {
             // console.log(data);
             if (data.status === 1) {
-                alert("加入购物车成功")
+                console.log("加入购物车成功")
             }else if (data.status === 0) {
                 // location.assign()
                 location.href = "/app/login/";

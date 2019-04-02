@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, reverse
 
 from .models import *
+import uuid
 
 
 # 首页
@@ -352,6 +353,47 @@ def cart_selectall(request):
                 Cart.objects.filter(id__in=select_list).update(is_select=False)
             else:
                 Cart.objects.filter(id__in=select_list).update(is_select=True)
+        else:
+            data['status'] = -1
+            data['msg'] = '请求方式不正确'
+    return JsonResponse(data)
+
+
+# 生成订单
+def order_create(request):
+    data = {
+        'status': 1,
+        'msg': 'ok',
+    }
+
+    userid = request.session.get('user_id', '')
+    if not userid:
+        data['status'] = 0
+        data['msg'] = '未登录'
+    else:
+        if request.method == 'GET':
+            # 先获取当前用户的购物车中勾选的商品
+            carts = Cart.objects.filter(user_id=userid, is_select=True)
+
+            # 生成订单
+            order = Order()
+            order.order_id = str(uuid.uuid4())
+            order.user_id = userid
+            order.save()
+
+            # 创建订单商品
+            total = 0  # 总价
+            for cart in carts:
+                order_goods = OrderGoods()
+                order_goods.goods_id = cart.goods_id
+                order_goods.order_id = order.id
+                order_goods.num = cart.num
+                order_goods.price = cart.goods.price
+                order_goods.save()
+                total += order_goods.num * order_goods.price
+            # 添加总价
+            order.order_price = total
+            order.save()
         else:
             data['status'] = -1
             data['msg'] = '请求方式不正确'

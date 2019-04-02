@@ -153,3 +153,27 @@ class Cart(models.Model):
 
     class Meta:
         db_table = 'axf_cart'
+
+
+# 订单
+class Order(models.Model):
+    order_id = models.CharField(max_length=50, unique=True)
+    order_createtime = models.DateTimeField(auto_now_add=True)
+    order_price = models.FloatField(default=0)
+    # 订单状态：0表示未支付（待付款），1表示已付款（待收货），2表示待评价，3表示交易完成
+    order_status = models.CharField(max_length=10, default=0)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = "axf_order"
+
+
+# 订单中的商品
+class OrderGoods(models.Model):
+    goods = models.ForeignKey(Goods, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    num = models.IntegerField(default=1)
+    price = models.FloatField()
+
+    class Meta:
+        db_table = 'axf_ordergoods'
