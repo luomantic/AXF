@@ -1,8 +1,9 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from rest_framework import viewsets
+
+from .models import Author
+from .serializer import AuthorSerializer
 
 
-# Create your views here.
-
-def author(request):
-    return HttpResponse('hello api')
+class AuthorViewSet(viewsets.ModelViewSet):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer

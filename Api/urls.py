@@ -1,9 +1,5 @@
-from django.urls import path,re_path
-from . import views
+from rest_framework import routers
+from .views import AuthorViewSet
 
-
-app_name = 'Api'
-
-urlpatterns = [
-    path('author/', views.author, name='author'),
-]
+router = routers.DefaultRouter()
+router.register('author', AuthorViewSet)
